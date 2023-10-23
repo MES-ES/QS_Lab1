@@ -1,9 +1,9 @@
 "use strict";
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const options = require("./connection-options.json");
 
 module.exports.getListJobs = (request, response) => {
-    const {type, identifier} = request.body;
+    const { type, identifier } = request.body;
     let connection = mysql.createConnection(options);
     connection.connect();
     let query = `
@@ -36,13 +36,10 @@ module.exports.getListJobs = (request, response) => {
         query += ` WHERE J.USERID = ? AND J.STATUS != '4'
                    ORDER BY CAST(PRIORITY_CODE.CODE AS SIGNED) ASC, COALESCE(J.Priority_Work, 1) ASC`;
         vaiablesToBind.push(identifier);
-    }
-    else if (type === "ALL") {
+    } else if (type === "ALL") {
         query += ` WHERE J.STATUS != '4'
                    ORDER BY CAST(PRIORITY_CODE.CODE AS SIGNED) ASC, COALESCE(J.Priority_Work, 1) ASC`;
-    }
-    else
-    {
+    } else {
         query += ` WHERE J.STATUS = ?
                    ORDER BY CAST(PRIORITY_CODE.CODE AS SIGNED) ASC, COALESCE(J.Priority_Work, 1) ASC`;
         vaiablesToBind.push(type);
@@ -50,13 +47,13 @@ module.exports.getListJobs = (request, response) => {
 
     connection.query(query, vaiablesToBind, function (err, rows) {
         if (err) {
-            console.log(err)
-            response.json({jobs: [] });
+            console.log(err);
+            response.json({ jobs: [] });
         } else {
-            response.json({jobs: rows });
+            response.json({ jobs: rows });
         }
     });
-}
+};
 
 module.exports.getUserInfoInitState = (request, response) => {
     let connection = mysql.createConnection(options);
@@ -70,38 +67,37 @@ module.exports.getUserInfoInitState = (request, response) => {
 
     connection.query(`${query1}; ${query2}; ${query3}; ${query4}; ${query5}; ${query6}`, function (err, results) {
         if (err) {
-            console.log(err)
-            response.json({initPageState: [] });
+            console.log(err);
+            response.json({ initPageState: [] });
         } else {
-            response.json({initPageState: results });
+            response.json({ initPageState: results });
         }
     });
-}
+};
 
 module.exports.editJobInfo = (request, response) => {
-    const {id, userId, status, equipmentType, equipmentTypeOther, equipmentProcedure, equipmentProcedureOther, equipmentBrand, notes, priority} = request.body;   
+    const { id, userId, status, equipmentType, equipmentTypeOther, equipmentProcedure, equipmentProcedureOther, equipmentBrand, notes, priority } =
+        request.body;
 
     let connection = mysql.createConnection(options);
     connection.connect();
-    
+
     let query = `SELECT
         MAX(Priority_Work) AS PRIORITY_NUMBER,
         COUNT(*) AS TOTAL_JOBS
         FROM JOB WHERE PRIORITY = ?`;
-    
+
     connection.query(query, [priority], function (err, result) {
         if (err) {
-            console.log(err)
+            console.log(err);
             response.sendStatus(500);
             return;
-        } 
-        
+        }
+
         let priorityWork = result[0].PRIORITY_NUMBER;
         if (priorityWork === null) {
             priorityWork = 1;
-        }
-        else
-        {
+        } else {
             priorityWork++;
         }
 
@@ -114,90 +110,135 @@ module.exports.editJobInfo = (request, response) => {
         query = `UPDATE JOB SET Equipment_Type = ?, Equipment_Type_Other = ?, Equipment_Procedure = ?, 
                  Equipment_Procedure_Other = ?, Notes = ?, Status = ?, Equipment_Brand = ?, Priority = ?, Priority_Work = ? WHERE ID = ?`;
 
-        let parameters = [equipmentType, equipmentTypeOther, equipmentProcedure, equipmentProcedureOther,
-            notes, status, equipmentBrand, priority, priorityWork, id];
+        let parameters = [
+            equipmentType,
+            equipmentTypeOther,
+            equipmentProcedure,
+            equipmentProcedureOther,
+            notes,
+            status,
+            equipmentBrand,
+            priority,
+            priorityWork,
+            id
+        ];
 
         if (status === "4") {
             query = `UPDATE JOB SET Equipment_Type = ?, Equipment_Type_Other = ?, Equipment_Procedure = ?, 
                 Equipment_Procedure_Other = ?, Notes = ?, Status = ?, Equipment_Brand = ?, Priority = ?, Priority_Work = ?,
                 DateFinished = ?, USERIDFINALISED = ? WHERE ID = ?`;
 
-            const dateFinalised = new Date().toISOString().slice(0, 19).replace('T', ' ');
-            parameters = [equipmentType, equipmentTypeOther, equipmentProcedure, equipmentProcedureOther,
-                notes, status, equipmentBrand, priority, priorityWork, dateFinalised, userId, id];
+            const dateFinalised = new Date().toISOString().slice(0, 19).replace("T", " ");
+            parameters = [
+                equipmentType,
+                equipmentTypeOther,
+                equipmentProcedure,
+                equipmentProcedureOther,
+                notes,
+                status,
+                equipmentBrand,
+                priority,
+                priorityWork,
+                dateFinalised,
+                userId,
+                id
+            ];
         }
 
         connection.query(query, parameters, function (err, rows) {
             if (err) {
-                console.log(err)
+                console.log(err);
                 response.sendStatus(500);
-            } 
-            else 
-            {
+            } else {
                 response.sendStatus(200);
             }
         });
-
     });
-}
+};
 
 module.exports.createJob = (request, response) => {
-    const {userId, userIdClient, status, equipmentType, equipmentTypeOther, equipmentProcedure, equipmentProcedureOther, equipmentBrand, notes, priority} = request.body;
-        
+    const {
+        userId,
+        userIdClient,
+        status,
+        equipmentType,
+        equipmentTypeOther,
+        equipmentProcedure,
+        equipmentProcedureOther,
+        equipmentBrand,
+        notes,
+        priority
+    } = request.body;
+
     let connection = mysql.createConnection(options);
     connection.connect();
 
     let query = "SELECT MAX(Priority_Work) AS PRIORITY_NUMBER FROM JOB WHERE PRIORITY = ?";
-    
+
     connection.query(query, [priority], function (err, result) {
         if (err) {
             console.log(err);
             response.sendStatus(500);
             return;
-        } 
+        }
 
         let priorityWork = result[0].PRIORITY_NUMBER;
         if (priorityWork === null) {
             priorityWork = 1;
-        }
-        else
-        {
+        } else {
             priorityWork++;
         }
-        
-        const dateStarted = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    
+
+        const dateStarted = new Date().toISOString().slice(0, 19).replace("T", " ");
+
         query = `
             INSERT INTO JOB (USERID, USERIDCLIENT, EQUIPMENT_TYPE, EQUIPMENT_TYPE_OTHER, EQUIPMENT_BRAND, EQUIPMENT_PROCEDURE, EQUIPMENT_PROCEDURE_OTHER, DATESTARTED, STATUS, NOTES, Priority, Priority_Work) 
             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
 
-        connection.query(query, [userId, userIdClient, equipmentType, equipmentTypeOther, equipmentBrand, equipmentProcedure, equipmentProcedureOther, dateStarted, status, notes, priority, priorityWork], function (err, rows) {
-            if (err) {
-                console.log(err);
-                response.sendStatus(500);
-                return;
-            } 
-            response.sendStatus(200);
-        });
+        connection.query(
+            query,
+            [
+                userId,
+                userIdClient,
+                equipmentType,
+                equipmentTypeOther,
+                equipmentBrand,
+                equipmentProcedure,
+                equipmentProcedureOther,
+                dateStarted,
+                status,
+                notes,
+                priority,
+                priorityWork
+            ],
+            function (err, rows) {
+                if (err) {
+                    console.log(err);
+                    response.sendStatus(500);
+                    return;
+                }
+                response.sendStatus(200);
+            }
+        );
     });
-}
+};
 
 module.exports.reopenJob = (request, response) => {
-    const {JobId} = request.body;
+    const { JobId } = request.body;
     let connection = mysql.createConnection(options);
     connection.connect();
     let query = `UPDATE JOB SET STATUS = ?, DATEFINISHED = ?, USERIDFINALISED = ? WHERE ID = ?`;
 
     connection.query(query, ["1", null, null, JobId], function (err, rows) {
         if (err) {
-            console.log(err)
+            console.log(err);
             response.sendStatus(500);
         } else {
             response.sendStatus(200);
         }
     });
-}
+};
 
 module.exports.editOrderPriority = (request, response) => {
     const { startRowInfo, endRowInfo } = request.body;
@@ -210,12 +251,16 @@ module.exports.editOrderPriority = (request, response) => {
 
     //console.log(startRowInfo, endRowInfo);
 
-    connection.query(`${query1}; ${query2}`, [startRowInfo.priorityWork, endRowInfo.id, endRowInfo.priorityWork, startRowInfo.id], function (err, results) {
-        if (err) {
-            console.log(err)
-            response.sendStatus(500);
-            return;
-        } 
-        response.sendStatus(200);
-    });
-}
+    connection.query(
+        `${query1}; ${query2}`,
+        [startRowInfo.priorityWork, endRowInfo.id, endRowInfo.priorityWork, startRowInfo.id],
+        function (err, results) {
+            if (err) {
+                console.log(err);
+                response.sendStatus(500);
+                return;
+            }
+            response.sendStatus(200);
+        }
+    );
+};

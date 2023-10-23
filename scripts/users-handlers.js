@@ -1,5 +1,5 @@
 "use strict";
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const options = require("./connection-options.json");
 
 module.exports.getUsers = (request, response) => {
@@ -17,29 +17,31 @@ module.exports.getUsers = (request, response) => {
     `;
     connection.query(query, function (err, rows) {
         if (err) {
-            console.log(err)
-            response.json({users: [] });
+            console.log(err);
+            response.json({ users: [] });
         } else {
-            response.json({users: rows });
+            response.json({ users: rows });
         }
     });
-}
+};
 
 module.exports.createUser = (request, response) => {
     let connection = mysql.createConnection(options);
     connection.connect();
     let query = "INSERT INTO user (userName, name, email, password, role) VALUES (?, ?, ?, ?, ?)";
-    connection.query(query, [request.body.name, request.body.userName, request.body.email, request.body.password, request.body.role], function (err, rows) {
-        if (err) {
-            console.log(err);
-            response.sendStatus(500);
-        } 
-        else 
-        {
-            response.sendStatus(200);
+    connection.query(
+        query,
+        [request.body.name, request.body.userName, request.body.email, request.body.password, request.body.role],
+        function (err, rows) {
+            if (err) {
+                console.log(err);
+                response.sendStatus(500);
+            } else {
+                response.sendStatus(200);
+            }
         }
-    });
-}
+    );
+};
 
 module.exports.editUser = (request, response) => {
     let connection = mysql.createConnection(options);
@@ -47,15 +49,13 @@ module.exports.editUser = (request, response) => {
     let query = "UPDATE user SET name = ?, email = ?, role = ? WHERE ID = ?";
     connection.query(query, [request.body.name, request.body.email, request.body.role, request.body.id], function (err, rows) {
         if (err) {
-            console.log(err)
-            response.json({success: false});
-        } 
-        else 
-        {
-            response.json({success: true});
+            console.log(err);
+            response.json({ success: false });
+        } else {
+            response.json({ success: true });
         }
     });
-}
+};
 
 module.exports.deleteUser = (request, response) => {
     let connection = mysql.createConnection(options);
@@ -65,13 +65,11 @@ module.exports.deleteUser = (request, response) => {
         if (err) {
             console.log(err);
             response.sendStatus(500);
-        } 
-        else 
-        {
+        } else {
             response.sendStatus(200);
         }
     });
-}
+};
 
 module.exports.getPageSettings = (request, response) => {
     let connection = mysql.createConnection(options);
@@ -80,10 +78,10 @@ module.exports.getPageSettings = (request, response) => {
 
     connection.query(`${query1}`, function (err, results) {
         if (err) {
-            console.log(err)
-            response.json({pageSettings: [] });
+            console.log(err);
+            response.json({ pageSettings: [] });
         } else {
-            response.json({pageSettings: [results] });
+            response.json({ pageSettings: [results] });
         }
     });
-}
+};
