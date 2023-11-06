@@ -23,6 +23,9 @@
         "eslint-plugin-promise": "^6.1.1"
     },
     "scripts": {
-        "lint": "npx eslint . -f ./eslint-formatter.js"
+        "eslint": "npx eslint . -f ./eslint-formatter.js -c .eslintrc/eslintrc.json",
+        "eslint-style": "npx eslint . -f ./eslint-formatter.js -c .eslintrc/eslintrc-style.json",
+        "eslint-client": "npx eslint www -f ./eslint-formatter.js -c .eslintrc/eslintrc-client.json",
+        "eslint-server": "npx eslint scripts -f ./eslint-formatter.js -c .eslintrc/eslintrc-server.json"
     }
 }
