@@ -9,6 +9,6 @@
     "parserOptions": {
         "ecmaVersion": "latest"
     },
-    "rules": {
-    }
+    "ignorePatterns": ["www/libs", "node_modules", ".vscode"],
+    "rules": {}
 }
