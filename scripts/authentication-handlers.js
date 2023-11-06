@@ -1,5 +1,5 @@
 "use strict";
-const mysql = require("mysql2");
+const mysql = require("mysql");
 const options = require("./connection-options.json");
 
 module.exports.login = (request, response) => {
@@ -12,8 +12,8 @@ module.exports.login = (request, response) => {
         INNER JOIN CODES ROLE_CODE ON ROLE_CODE.CODE = U.ROLE
         WHERE (U.USERNAME = ? OR U.email = ?) AND U.PASSWORD = ?
     `;
-
-    connection.query(query, [request.body.login, request.body.login, request.body.password], function (err, row) {
+    
+    connection.query(query, [request.body.login, request.body.login, request.body.password], function (err, row) {        
         if (err) {
             response.sendStatus(500);
         } else if (row.length === 0) {
@@ -24,4 +24,4 @@ module.exports.login = (request, response) => {
             response.send(JSON.stringify(row[0]));
         }
     });
-};
+}
