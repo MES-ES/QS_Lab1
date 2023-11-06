@@ -9,6 +9,6 @@
     "parserOptions": {
         "ecmaVersion": "latest"
     },
-    "ignorePatterns": ["www/libs", "node_modules", ".vscode"],
+    "ignorePatterns": ["www/libs", "node_modules", ".vscode", "eslint-formatter.js"],
     "rules": {}
 }
