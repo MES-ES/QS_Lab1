@@ -1,25 +1,28 @@
 {
-  "name": "pw-lab07",
-  "description": "Lab 07 da UC PW",
-  "version": "1.0.0",
-  "dependencies": {
-    "body-parser": "^1.19.1",
-    "cookie-parser": "^1.4.6",
-    "express": "^4.17.2",
-    "express-session": "^1.17.2",
-    "mysql": "^2.18.1",
-    "mysql2": "^2.3.3",
-    "mysql2-promise": "^0.1.4",
-    "oracledb": "^5.3.0",
-    "websocket": "^1.0.34",
-    "ws": "^8.5.0"
-  },
-  "license": "MIT",
-  "devDependencies": {
-    "eslint": "^8.53.0",
-    "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.29.0",
-    "eslint-plugin-n": "^16.2.0",
-    "eslint-plugin-promise": "^6.1.1"
-  }
+    "name": "pw-lab07",
+    "description": "Lab 07 da UC PW",
+    "version": "1.0.0",
+    "dependencies": {
+        "body-parser": "^1.19.1",
+        "cookie-parser": "^1.4.6",
+        "express": "^4.17.2",
+        "express-session": "^1.17.2",
+        "mysql": "^2.18.1",
+        "mysql2": "^2.3.3",
+        "mysql2-promise": "^0.1.4",
+        "oracledb": "^5.3.0",
+        "websocket": "^1.0.34",
+        "ws": "^8.5.0"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "eslint": "^8.53.0",
+        "eslint-config-standard": "^17.1.0",
+        "eslint-plugin-import": "^2.29.0",
+        "eslint-plugin-n": "^16.2.0",
+        "eslint-plugin-promise": "^6.1.1"
+    },
+    "scripts": {
+        "lint": "npx eslint . -f ./eslint-formatter.js"
+    }
 }
