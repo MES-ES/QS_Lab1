@@ -20,12 +20,14 @@
         "eslint-config-standard": "^17.1.0",
         "eslint-plugin-import": "^2.29.0",
         "eslint-plugin-n": "^16.2.0",
-        "eslint-plugin-promise": "^6.1.1"
+        "eslint-plugin-promise": "^6.1.1",
+        "jest": "^29.7.0"
     },
     "scripts": {
         "eslint": "npx eslint . -f ./eslint-formatter.js -c .eslintrc/eslintrc.json",
         "eslint-style": "npx eslint . -f ./eslint-formatter.js -c .eslintrc/eslintrc-style.json",
         "eslint-client": "npx eslint www -f ./eslint-formatter.js -c .eslintrc/eslintrc-client.json",
-        "eslint-server": "npx eslint scripts -f ./eslint-formatter.js -c .eslintrc/eslintrc-server.json"
+        "eslint-server": "npx eslint scripts -f ./eslint-formatter.js -c .eslintrc/eslintrc-server.json",
+        "test": "jest"
     }
 }
