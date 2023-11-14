@@ -1,16 +1,7 @@
+"use strict"
+
 const mysql2 = require('mysql2');
 const { login } = require('../scripts/authentication-handlers');
-
-jest.mock('mysql2', () => {
-	const mockConnection = {
-		connect: jest.fn(),
-		query: jest.fn(),
-	};
-
-	return {
-		createConnection: jest.fn(() => mockConnection),
-	};
-});
 
 const mockRequest = {
 	body: {
@@ -33,11 +24,22 @@ const mockResponse = {
 	send: jest.fn(),
 };
 
-describe('login function', () => {
-	it('handle the successful login', () => {
+jest.mock('mysql2', function () {
+	const mockConnection = {
+		connect: jest.fn(),
+		query: jest.fn(),
+	};
+
+	return {
+		createConnection: jest.fn(function () { return mockConnection } ),
+	};
+});
+
+describe('login function', function () {
+	it('handle the successful login', function () {
 		const user = { id: 1, userName: 'renatoreis', name: 'Alcirio Reis', email: 'renato@gmail.com', roleCode: 'A', roleDescription: 'Administrator' };
 
-		mysql2.createConnection().query.mockImplementationOnce((query, params, callback) => {
+		mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
 			callback(null, [user]);
 		});
 
@@ -47,8 +49,8 @@ describe('login function', () => {
 		expect(mockResponse.send).toHaveBeenCalledWith(JSON.stringify(user));
 	});
 
-	it('handle an unsuccessful login with incorrect credentials', () => {
-		mysql2.createConnection().query.mockImplementationOnce((query, params, callback) => {
+	it('handle an unsuccessful login with incorrect credentials', function () {
+		mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
 			callback(null, []);
 		});
 
@@ -57,8 +59,8 @@ describe('login function', () => {
 		expect(mockResponse.sendStatus).toHaveBeenCalledWith(401);
 	});
 
-	it('should handle an error during the login process', () => {
-		mysql2.createConnection().query.mockImplementationOnce((query, params, callback) => {
+	it('should handle an error during the login process', function () {
+		mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
 			callback(new Error('Database error'), null);
 		});
 
