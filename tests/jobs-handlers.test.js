@@ -1,7 +1,7 @@
 "use strict"
 
 const mysql2 = require('mysql2');
-const { getListJobs, getUserInfoInitState } = require('../scripts/jobs-handlers');
+const { getListJobs, getUserInfoInitState, editJobInfo, reopenJob, editOrderPriority } = require('../scripts/jobs-handlers');
 
 var mockRequest = {};
 var mockResponse = {};
@@ -99,5 +99,94 @@ describe('getUserInfoInitState function', function () {
 		getUserInfoInitState(mockRequest, mockResponse);
 
 		expect(mockResponse.json).toHaveBeenCalledWith({ initPageState: [] });
+	});
+});
+
+describe('editJobInfo function', function () {
+	const job = [{ PRIORITY_NUMBER: 1, TOTAL_JOBS: 1 }];
+	mockResponse.sendStatus = jest.fn();
+
+	it('handle a successful update and return 200 status', function () {
+		const mockConnection = mysql2.createConnection();
+
+		mockConnection.query.mockImplementationOnce(function (_query, _params, callback) {
+			callback(null, job);
+		});
+		mockConnection.query.mockImplementationOnce(function (_query, _params, callback) {
+			callback(null, {});
+		});
+
+		editJobInfo(mockRequest, mockResponse);
+
+		expect(mockResponse.sendStatus).toHaveBeenCalledWith(200);
+	});
+
+	it('handle an unsuccessful update and return 500 status', function () {
+		const mockConnection = mysql2.createConnection();
+
+		mockConnection.query.mockImplementationOnce(function (_query, _params, callback) {
+			callback(null, job);
+		});
+		mockConnection.query.mockImplementationOnce(function (_query, _params, callback) {
+			callback(new Error('Database error'), null);
+		});
+
+		editJobInfo(mockRequest, mockResponse);
+
+		expect(mockResponse.sendStatus).toHaveBeenCalledWith(500);
+	});
+});
+
+describe('reopenJob function', function () {
+	mockResponse.sendStatus = jest.fn();
+
+	it('handle a successful update and return 200 status', function () {
+		mockRequest.body = { JobId: 1 };
+		mysql2.createConnection().query.mockImplementationOnce(function (_query, _params, callback) {
+			callback(null, {});
+		});
+
+		reopenJob(mockRequest, mockResponse);
+
+		expect(mockResponse.sendStatus).toHaveBeenCalledWith(200);
+	});
+
+	it('handle an unsuccessful update and return 500 status', function () {
+		mysql2.createConnection().query.mockImplementationOnce(function (_query, _params, callback) {
+			callback(new Error('Database error'), null);
+		});
+
+		reopenJob(mockRequest, mockResponse);
+
+		expect(mockResponse.sendStatus).toHaveBeenCalledWith(500);
+	});
+});
+
+describe('editOrderPriority function', function () {
+	mockResponse.sendStatus = jest.fn();
+
+	it('handle a successful update and return 200 status', function () {
+		mockRequest.body = {
+			startRowInfo: { id: 1, priorityWork: 2 },
+			endRowInfo: { id: 2, priorityWork: 3 },
+		};
+
+		mysql2.createConnection().query.mockImplementationOnce(function (_query, _params, callback) {
+			callback(null, {});
+		});
+
+		editOrderPriority(mockRequest, mockResponse);
+
+		expect(mockResponse.sendStatus).toHaveBeenCalledWith(200);
+	});
+
+	it('handle an unsuccessful update and return 500 status', function () {
+		mysql2.createConnection().query.mockImplementationOnce(function (_query, _params, callback) {
+			callback(new Error('Database error'), null);
+		});
+
+		editOrderPriority(mockRequest, mockResponse);
+
+		expect(mockResponse.sendStatus).toHaveBeenCalledWith(500);
 	});
 });
