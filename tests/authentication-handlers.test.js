@@ -3,7 +3,7 @@
 const mysql2 = require('mysql2');
 const { login } = require('../scripts/authentication-handlers');
 
-const mockRequest = {
+var mockRequest = {
 	body: {
 		login: 'renatoreis',
 		password: '123456',
@@ -11,15 +11,7 @@ const mockRequest = {
 	session: {},
 };
 
-const mockBadRequest = {
-	body: {
-		login: 'invalidUser',
-		password: 'invalidPassword',
-	},
-	session: {},
-};
-
-const mockResponse = {
+var mockResponse = {
 	sendStatus: jest.fn(),
 	send: jest.fn(),
 };
@@ -39,7 +31,7 @@ describe('login function', function () {
 	it('handle the successful login', function () {
 		const user = { id: 1, userName: 'renatoreis', name: 'Alcirio Reis', email: 'renato@gmail.com', roleCode: 'A', roleDescription: 'Administrator' };
 
-		mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
+		mysql2.createConnection().query.mockImplementationOnce(function (_query, _params, callback) {
 			callback(null, [user]);
 		});
 
@@ -50,17 +42,20 @@ describe('login function', function () {
 	});
 
 	it('handle an unsuccessful login with incorrect credentials', function () {
-		mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
+		mockRequest.body.login = "invalidLogin"
+		mockRequest.body.password = "invalidPassword"
+
+		mysql2.createConnection().query.mockImplementationOnce(function (_query, _params, callback) {
 			callback(null, []);
 		});
 
-		login(mockBadRequest, mockResponse);
+		login(mockRequest, mockResponse);
 
 		expect(mockResponse.sendStatus).toHaveBeenCalledWith(401);
 	});
 
 	it('should handle an error during the login process', function () {
-		mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
+		mysql2.createConnection().query.mockImplementationOnce(function (_query, _params, callback) {
 			callback(new Error('Database error'), null);
 		});
 
