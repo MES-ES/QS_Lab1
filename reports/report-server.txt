@@ -1,8 +1,13 @@
 
 > pw-lab07@1.0.0 eslint-server
-> npx eslint scripts -f ./eslint-formatter.js -c .eslintrc/eslintrc-server.json
+> npx eslint scripts app.js -f ./eslint-formatter.js -c .eslintrc/eslintrc-server.json
 
-no-unused-vars (total: 12)
+no-unused-vars (total: 17)
+C:\Users\danie\Desktop\QS\QS_Lab1\scripts\app.js:112:44
+C:\Users\danie\Desktop\QS\QS_Lab1\scripts\app.js:112:53
+C:\Users\danie\Desktop\QS\QS_Lab1\scripts\app.js:141:33
+C:\Users\danie\Desktop\QS\QS_Lab1\scripts\app.js:141:45
+C:\Users\danie\Desktop\QS\QS_Lab1\scripts\app.js:150:56
 C:\Users\danie\Desktop\QS\QS_Lab1\scripts\clients-handlers.js:32:165
 C:\Users\danie\Desktop\QS\QS_Lab1\scripts\clients-handlers.js:48:65
 C:\Users\danie\Desktop\QS\QS_Lab1\scripts\clients-handlers.js:64:148
