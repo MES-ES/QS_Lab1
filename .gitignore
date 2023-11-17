@@ -1,3 +1,9 @@
 node_modules/
 .vscode
 scripts/connection-options.json
+docs/*.aux
+docs/*.lof
+docs/*.log
+docs/*.lot
+docs/*.out
+docs/*.toc

@@ -4,7 +4,7 @@
 \usepackage{graphicx} % Image Load
 \usepackage{hyperref} % References
 \usepackage[none]{hyphenat} % Remove Hyphenation
-\usepackage[left=2cm,right=2cm]{geometry} % Custom margin size
+	\usepackage[left=2cm,right=2cm,bottom=5cm]{geometry} % Custom margin size
 
 % Table of Contents Configuration
 \setcounter{tocdepth}{3}
@@ -42,10 +42,62 @@
 
 \newpage
 \section{Introdução}
-Este relatório tem como objetivo a análise da qualidade de código de um projeto realizado por outros alunos. Para esta análise iremos recorrer a várias ferramentas e livrarias que em breve iremos apresentar não só as suas funcionalidades, mas também os resultados que obtivemos com elas.
+Este relatório tem como objetivo a análise da qualidade de código de um projeto realizado por outros alunos. Para esta análise iremos recorrer a uma breve experimentação das funcionalidades e requisitos do projeto.Em seguida iremos testar várias ferramentas e livrarias de análise da qualidade/consistência do código ao qual iremos em breve apresentar não só as suas funcionalidades, mas também os resultados que obtivemos com elas.
 
 \newpage
-\section{Ferramentas Exploradas}
+\section{Análise do Caso de Estudo}
+Sendo esta a primeira fase desta pequena investigação, transferimos o projeto caso de estudo do \footnote{Moodle IPS - \url{https://moodle.ips.pt/2324/}}{\textbf{Moodle}} e instalámos nas nossas máquinas para análise. Desta forma, após instalarmos e configurarmos o projeto nos nossos computadores, fizemos um breve teste das suas funcionalidades e diagnosticámos alguns problemas que possam afetar a qualidade do projeto, assim sendo, elaborámos uma lista de requisitos funcionais que o projeto deveria implementar.
+
+\subsection{Análise de Requisitos}
+\subsubsection{Clientes}
+\begin{itemize}
+	\item O sistema deverá permitir inserir novos clientes;
+	\item O sistema deverá permitir pesquisar pelos clientes;
+	\item O sistema deverá permitir aplicar filtros às pesquisas dos clientes;
+	\item O sistema deverá permitir atualizar a informação dos clientes;
+	\item O sistema deverá permitir eliminar clientes;
+	\item O sistema deverá efetuar a validação de dados ao criar um cliente.
+\end{itemize}
+
+\subsubsection{Utilizadores}
+\begin{itemize}
+	\item O sistema deverá permitir inserir novos utilizadores;
+	\item O sistema deverá permitir pesquisar pelos utilizadores;
+	\item O sistema deverá permitir aplicar filtros às pesquisas dos utilizadores;
+	\item O sistema deverá permitir atualizar a informação de outros utilizadores;
+	\item O sistema deverá permitir eliminar outros utilizadores;
+	\item O sistema deverá efetuar a validação de dados ao criar um utilizador.
+\end{itemize}
+
+\newpage
+\subsubsection{Serviços}
+\begin{itemize}
+	\item O sistema deverá permitir criar serviços;
+	\item O sistema deverá permitir pesquisar pelos serviços;
+	\item O sistema deverá permitir realizar pesquisas filtrados aos serviços;
+	\item O sistema deverá permitir aplicar filtros às pesquisas dos serviços;
+	\item O sistema deverá permitir atualizar a informação dos serviços;
+	\item O sistema deverá de validar os dados ao criar um serviço;
+	\item O sistema deverá permitir reabrir um serviço concluído;
+	\item O sistema deverá de mostrar quantos qual o index do serviço relativo à sua prioridade.
+\end{itemize}
+
+\subsubsection{Mensagens}
+\begin{itemize}
+	\item O sistema deverá permitir enviar mensagens para outros utilizadores em tempo real;
+	\item O sistema deverá permitir escolher para qual utilizador.
+\end{itemize}
+
+\subsubsection{Sistema}
+\begin{itemize}
+	\item O sistema deverá permitir fazer login;
+	\item O sistema deverá permitir fazer logout;
+	\item O sistema deverá de verificar permissões no routing.
+\end{itemize}
+
+\newpage
+\section{Ferramentas de Análise}
+Após um diagnóstico de requisitos do projeto, avançamos para uma análise a nível de possíveis problemas de código, para esta tarefa, efetuamos uma pesquisa de ferramentas que nos possam ajudar com esta tarefa, das quais, achamos importante destacar:
 
 \begin{itemize}
 	\item \textbf{ESLint} é uma ferramenta de análise de código estático que verifica o código JavaScript procurando diversos problemas comuns, como erros de sintaxe, problemas de formatação, violações de estilo de código e possíveis bugs.
@@ -132,8 +184,8 @@ Nesta análise decidimos fazer distinção entre problemas de código de servido
 	\caption{Análise de Lint Simples (Server-side)}
 \end{table}
 
-\subsubsection{Análise complexa}
-Para a análise complexa, configuramos o \textbf{ESLint} para reportar os problemas da análise simples, assim como os problemas de estilo de código. Para esta análise, escolhemos os estilo de código \hyperlink{https://github.com/standard/standard}{\textit{Standard}} onde pudemos observar os seguintes resultados:
+\subsubsection{Análise detalhada}
+Para a análise detalhada, configuramos o \textbf{ESLint} para reportar os problemas da análise simples, assim como os problemas de estilo de código. Para esta análise, escolhemos os estilo de código \hyperlink{https://github.com/standard/standard}{\textit{Standard}} onde pudemos observar os seguintes resultados:
 
 \vspace{1cm}
 \begin{table}[!ht]
@@ -203,6 +255,6 @@ Para a análise complexa, configuramos o \textbf{ESLint} para reportar os proble
 		\textit{Espaços} múltiplos & 2 \\
 		\hline
 	\end{tabular}
-	\caption{Análise de Lint Complexa}
+	\caption{Análise de Lint Detalhada}
 \end{table}
 \end{document}
