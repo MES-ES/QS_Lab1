@@ -230,18 +230,14 @@ describe("Get User Tests", function () {
             "TOTAL_JOBS": 0
         };
 
-        const mockConnection = mysql2.createConnection();
-
         //CAUTION: No param argument because query has no parameters
-        mockConnection.query.mockImplementationOnce(function (query, callback) {
+        mysql2.createConnection().query.mockImplementationOnce(function (query, callback) {
             callback(null, [user]);
         });
 
         getUsers(mockRequest, mockResponse);
 
         expect(mockResponse.json).toHaveBeenCalledWith({ users: [user] });
-
-        mockConnection.query.mockClear();
     });
 
     it("handle a get all user requests with multiple users", function () {
@@ -271,19 +267,14 @@ describe("Get User Tests", function () {
             }
         ];
 
-        const mockConnection = mysql2.createConnection();
-
         //CAUTION: No param argument because query has no parameters
-        mockConnection.query.mockImplementationOnce(function (query, callback) {
+        mysql2.createConnection().query.mockImplementationOnce(function (query, callback) {
             callback(null, [users]);
         });
 
         getUsers(mockRequest, mockResponse);
 
         expect(mockResponse.json).toHaveBeenCalledWith({ users: [users] });
-
-        // mockConnection.on("error", function () {});
-        mockConnection.query.mockClear();
     });
 
     it("handle a get all users with no users", function () {
@@ -292,19 +283,14 @@ describe("Get User Tests", function () {
             json: jest.fn()
         };
 
-        const mockConnection = mysql2.createConnection();
-
         //CAUTION: No param argument because query has no parameters
-        mockConnection.query.mockImplementationOnce(function (query, callback) {
+        mysql2.createConnection().query.mockImplementationOnce(function (query, callback) {
             callback(null, []);
         });
 
         getUsers(mockRequest, mockResponse);
 
         expect(mockResponse.json).toHaveBeenCalledWith({ users: [] });
-
-        // mockConnection.on("error", function () {});
-        mockConnection.query.mockClear();
     });
 
     it("handle a get all users when a database error ocurred", function () {
@@ -313,18 +299,13 @@ describe("Get User Tests", function () {
             json: jest.fn()
         };
 
-        const mockConnection = mysql2.createConnection();
-
         //CAUTION: No param argument because query has no parameters
-        mockConnection.query.mockImplementationOnce(function (query, callback) {
+        mysql2.createConnection().query.mockImplementationOnce(function (query, callback) {
             callback(new Error("Database error"), null);
         });
 
         getUsers(mockRequest, mockResponse);
 
         expect(mockResponse.json).toHaveBeenCalledWith({ users: [] });
-
-        // mockConnection.on("error", function () {});
-        mockConnection.query.mockClear();
     });
 });
