@@ -198,8 +198,8 @@ module.exports.loadPageSettingsAjax = function loadPageSettingsAjax(callback) {
         if (this.readyState === 4 && this.status === 200) {
             callback(xhr.response.pageSettings);
         } else if (this.readyState === 4) {
-            console.log(this.status);
-            console.log(this.statusText);
+            // console.log(this.status);
+            // console.log(this.statusText);
             callback([]);
         }
     };
