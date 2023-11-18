@@ -516,7 +516,7 @@ describe("loginAjax function tests", function () {
 
         jest.spyOn(window, "XMLHttpRequest").mockImplementation(() => xhrMock);
         const callback = jest.fn();
-        loginAjax(auth.login, auth.password, callback);
+        loginAjax(invalidAuth.login, invalidAuth.password, callback);
         expect(xhrMock.open).toBeCalledWith("POST", "/api/login", true);
         expect(xhrMock.setRequestHeader).toBeCalledWith("Content-Type", "application/json");
         xhrMock.onreadystatechange(new Event(""));
