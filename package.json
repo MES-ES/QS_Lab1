@@ -22,7 +22,8 @@
         "eslint-plugin-n": "^16.2.0",
         "eslint-plugin-promise": "^6.1.1",
         "jest": "^29.7.0",
-        "jest-environment-jsdom": "^29.7.0"
+        "jest-environment-jsdom": "^29.7.0",
+        "jest-html-reporter": "^3.10.2"
     },
     "scripts": {
         "eslint": "npx eslint . -f ./eslint-formatter.js -c .eslintrc/eslintrc.json",
@@ -34,6 +35,16 @@
         "test-verbose": "jest --verbose"
     },
     "jest": {
-        "testEnvironment": "jsdom"
+        "testEnvironment": "jsdom",
+        "reporters": [
+            "default",
+            [
+                "./node_modules/jest-html-reporter",
+                {
+                    "pageTitle": "Test Report",
+                    "outputPath": "./reports"
+                }
+            ]
+        ]
     }
 }
