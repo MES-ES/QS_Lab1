@@ -347,7 +347,82 @@ O \textbf{Prettier} é uma ferramenta de formatação de código que analisar o 
 
 Um dos principais benefícios do \textbf{Prettier} é a sua simplicidade e configuração \textit{barebones}. Ele pretende minimizar a necessidade dos programadores tomarem decisões sobre o estilo de código, fornecendo um conjunto padrão de regras sendo estas facilmente configuradas.
 
-Os programadores podem integrar o \textbf{Prettier} no seu \textit{workflow} usando-o diretamente a partir da linha de comandos ou integrando-o diretamente em editores de código e IDEs.
+Os programadores podem integrar o \textbf{Prettier} no seu \textit{workflow} usando-o diretamente a partir da linha de comandos ou integrando-o diretamente em editores de código e \textit{IDEs}.
+
+\newpage
+\section{Normas ISO}
+As normas ISO em desenvolvimento de software são padrões internacionais que permitem que programadores em todo o mundo estruturem melhor o seu código. Existem várias certificações ISO aplicáveis às empresas de software, e cada uma delas estabelece diretrizes e boas práticas para a criação de software. A conformidade com as normas ISO pode melhorar a segurança dos dados, a confiabilidade para os clientes e a clareza dos procedimentos e segurança do ciclo de vida do desenvolvimento do software.
+
+As normas ISO mais comuns na engenharia de software são:
+\begin{itemize}
+	\item \textit{SO/IEC 9126;}
+	\item \textit{ISO/IEC 25010;}
+	\item \textit{ISO/IEC 15504;}
+	\item \textit{ISO/IEC 12207;}
+	\item \textit{ISO 5055;}
+	\item \textit{ISO 9001;}
+	\item \textit{ISO/IEC 27001;}
+	\item \textit{ISO/IEC 20000-1.}
+\end{itemize}
+
+\subsection{ISO 5055}
+\subsubsection{Definição}
+A norma que escolhemos para este projeto foi a norma \textit{ISO 5055} que mede a qualidade e integridade de um sistema de software analisando a sua construção de forma a detetar falhas estruturais. Esta norma baseia-se em 4 fatores: segurança, confiabilidade, eficiência e manutenibilidade.
+
+\subsubsection{Importância}
+Esta norma é importante porque ajuda a determinar a confiabilidade, a dependabilidade e a resiliência de um software a nível de um sistema ou componente. Isto permite que clientes evitem interrupções no software, dano à sua reputação ou até elevadas despesas informáticas.
+
+\newpage
+\subsubsection{Aplicação}
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|l|m{6cm}|m{6cm}|}
+		\hline
+		\textbf{Caraterística} & \textbf{Causa}  & \textbf{Consequência}\\
+		\hline
+		Segurança &
+		\begin{itemize}
+			\item Passwords não \textit{Hashed}
+			\item Inexistência de verificações do lado do servidor
+		\end{itemize} &
+		\begin{itemize}
+			\item Informação sensível exposta a \textit{hackers}
+			\item Acesso indevido a componentes e partes administrativas do sistema
+			\item Cross-site scripting
+		\end{itemize} \\
+		\hline
+		Confiabilidade &
+		\begin{itemize}
+			\item Baixo nível de gestão de erros\footnotemark
+		\end{itemize} &
+		\begin{itemize}
+			\item Exceções durante as transações com a Base de Dados
+		\end{itemize} \\
+		\hline
+		Eficiência &
+		\begin{itemize}
+			\item Consultas inteiras à Base de Dados
+			\item Carregamento de recursos excessivos a cada atualização de página
+		\end{itemize} &
+		\begin{itemize}
+			\item Alto tráfego de dados
+			\item Processamento excessivo
+		\end{itemize} \\
+		\hline
+		Manutenibilidade &
+		\begin{itemize}
+			\item Repetição de código
+			\item Não cumprimento das convenções de codificação
+		\end{itemize} &
+		\begin{itemize}
+			\item Alto acopulamento
+			\item Problemas de interpretação de código
+		\end{itemize} \\
+		\hline
+	\end{tabular}
+	\caption{Tabela ISO 5055}
+\end{table}
+\footnotetext{Apesar de existirem poucas verificações, os módulos e funções que foram escolhidos ao longo do projeto têm alguns mecanismos fail-safe.}
 
 \newpage
 \section{Testes Unitários}
