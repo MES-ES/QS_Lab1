@@ -29,6 +29,7 @@
         "eslint-style": "npx eslint . -f ./eslint-formatter.js -c .eslintrc/eslintrc-style.json",
         "eslint-client": "npx eslint www -f ./eslint-formatter.js -c .eslintrc/eslintrc-client.json",
         "eslint-server": "npx eslint scripts -f ./eslint-formatter.js -c .eslintrc/eslintrc-server.json",
+        "eslint-test": "npx eslint tests -f ./eslint-formatter.js -c .eslintrc/eslintrc-test.json",
         "test": "jest",
         "test-verbose": "jest --verbose"
     },
