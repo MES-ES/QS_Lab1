@@ -205,6 +205,17 @@ const pageSettings = {
     ]
 };
 
+const getXhrMock = function (status, response) {
+    return {
+        open: jest.fn(),
+        send: jest.fn(),
+        setRequestHeader: jest.fn(),
+        readyState: 4,
+        status: status,
+        response: response
+    };
+};
+
 jest.mock("mysql2", function () {
     const mockConnection = {
         connect: jest.fn(),
@@ -220,14 +231,7 @@ jest.mock("mysql2", function () {
 
 describe("getClientsAjax function tests", function () {
     it("With unsuccessful request", function () {
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 500,
-            response: null
-        };
+        const xhrMock = getXhrMock(500, null);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, []);
@@ -242,14 +246,7 @@ describe("getClientsAjax function tests", function () {
     });
 
     it("With successful request", function () {
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 200,
-            response: clients
-        };
+        const xhrMock = getXhrMock(200, clients);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, [clients]);
@@ -265,14 +262,7 @@ describe("getClientsAjax function tests", function () {
 
     it("With unsuccessful request and new users saved in localStorage", function () {
         const response = localStorage.getItem(keys["clientsKey"]);
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 500,
-            response: response
-        };
+        const xhrMock = getXhrMock(500, response);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, [response]);
@@ -291,14 +281,7 @@ describe("getClientsAjax function tests", function () {
 
 describe("editClientAjax function tests", function () {
     it("With successful request", function () {
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 200,
-            response: { success: true }
-        };
+        const xhrMock = getXhrMock(200, { success: true });
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, { success: true });
@@ -314,14 +297,7 @@ describe("editClientAjax function tests", function () {
     });
 
     it("With unsuccessful request", function () {
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 500,
-            response: { success: false }
-        };
+        const xhrMock = getXhrMock(500, { success: false });
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, { success: false });
@@ -340,14 +316,7 @@ describe("editClientAjax function tests", function () {
 describe("deleteClientAjax function tests", function () {
     it("With successful request", function () {
         const id = 1;
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 200,
-            response: 200
-        };
+        const xhrMock = getXhrMock(200, 200);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, 200);
@@ -363,14 +332,7 @@ describe("deleteClientAjax function tests", function () {
 
     it("With unsuccessful request", function () {
         const id = 1;
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 500,
-            response: 500
-        };
+        const xhrMock = getXhrMock(500, 500);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, 500);
@@ -387,14 +349,7 @@ describe("deleteClientAjax function tests", function () {
 
 describe("createClientAjax function tests", function () {
     it("With successful request", function () {
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 200,
-            response: 200
-        };
+        const xhrMock = getXhrMock(200, 200);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, 200);
@@ -410,14 +365,7 @@ describe("createClientAjax function tests", function () {
     });
 
     it("With unsuccessful request", function () {
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 500,
-            response: 500
-        };
+        const xhrMock = getXhrMock(500, 500);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, 500);
@@ -435,14 +383,7 @@ describe("createClientAjax function tests", function () {
 
 describe("logOutAjax function tests", function () {
     it("With successful request", function () {
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 200,
-            response: 200
-        };
+        const xhrMock = getXhrMock(200, 200);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, 200);
@@ -473,15 +414,7 @@ describe("loginAjax function tests", function () {
             roleDescription: "Administrador"
         };
         const stringifiedUser = JSON.stringify(user);
-
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 200,
-            response: stringifiedUser
-        };
+        const xhrMock = getXhrMock(200, stringifiedUser);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, [user]);
@@ -501,14 +434,7 @@ describe("loginAjax function tests", function () {
     });
 
     it("With successful request but not valid credentials", function () {
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 401,
-            response: 401
-        };
+        const xhrMock = getXhrMock(401, 401);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, []);
@@ -524,14 +450,7 @@ describe("loginAjax function tests", function () {
     });
 
     it("With unsuccessful request", function () {
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 500,
-            response: 500
-        };
+        const xhrMock = getXhrMock(500, 500);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, []);
@@ -549,14 +468,7 @@ describe("loginAjax function tests", function () {
 
 describe("getUsersAjax function tests", function () {
     it("With unsuccessful request", function () {
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 500,
-            response: null
-        };
+        const xhrMock = getXhrMock(500, null);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, []);
@@ -571,14 +483,7 @@ describe("getUsersAjax function tests", function () {
     });
 
     it("With successful request", function () {
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 200,
-            response: users
-        };
+        const xhrMock = getXhrMock(200, users);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, [users]);
@@ -594,14 +499,7 @@ describe("getUsersAjax function tests", function () {
 
     it("With unsuccessful request and new users saved in localStorage", function () {
         const response = localStorage.getItem(keys["users"]);
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 500,
-            response: response
-        };
+        const xhrMock = getXhrMock(500, response);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, [response]);
@@ -620,14 +518,7 @@ describe("getUsersAjax function tests", function () {
 
 describe("createUserAjax function tests", function () {
     it("With successful request", function () {
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 200,
-            response: 200
-        };
+        const xhrMock = getXhrMock(200, 200);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, 200);
@@ -643,14 +534,7 @@ describe("createUserAjax function tests", function () {
     });
 
     it("With unsuccessful request", function () {
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 500,
-            response: 500
-        };
+        const xhrMock = getXhrMock(500, 500);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, 500);
@@ -669,14 +553,7 @@ describe("createUserAjax function tests", function () {
 describe("deleteUserAjax function tests", function () {
     it("With successful request", function () {
         const id = 1;
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 200,
-            response: 200
-        };
+        const xhrMock = getXhrMock(200, 200);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, 200);
@@ -692,14 +569,7 @@ describe("deleteUserAjax function tests", function () {
 
     it("With unsuccessful request", function () {
         const id = 1;
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 500,
-            response: 500
-        };
+        const xhrMock = getXhrMock(500, 500);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, 500);
@@ -716,14 +586,7 @@ describe("deleteUserAjax function tests", function () {
 
 describe("editUserAjax function tests", function () {
     it("With successful request", function () {
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 200,
-            response: { success: true }
-        };
+        const xhrMock = getXhrMock(200, { success: true });
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, { success: true });
@@ -739,14 +602,7 @@ describe("editUserAjax function tests", function () {
     });
 
     it("With unsuccessful request", function () {
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 500,
-            response: { success: false }
-        };
+        const xhrMock = getXhrMock(500, { success: false });
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, { success: false });
@@ -764,14 +620,7 @@ describe("editUserAjax function tests", function () {
 
 describe("loadPageSettingsAjax", function () {
     it("With successful request", function () {
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 200,
-            response: pageSettings
-        };
+        const xhrMock = getXhrMock(200, pageSettings);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, [pageSettings]);
@@ -786,14 +635,7 @@ describe("loadPageSettingsAjax", function () {
     });
 
     it("With unsuccessful request", function () {
-        const xhrMock = {
-            open: jest.fn(),
-            send: jest.fn(),
-            setRequestHeader: jest.fn(),
-            readyState: 4,
-            status: 500,
-            response: []
-        };
+        const xhrMock = getXhrMock(500, []);
 
         mysql2.createConnection().query.mockImplementationOnce(function (query, params, callback) {
             callback(null, []);
