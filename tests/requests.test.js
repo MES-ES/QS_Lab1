@@ -283,9 +283,9 @@ describe("getClientsAjax function tests", function () {
         getClientsAjax(callback);
         expect(xhrMock.open).toBeCalledWith("GET", "/api/getClients", true);
         xhrMock.onreadystatechange(new Event(""));
-        // expect(callback.mock.calls).toEqual([[response]]);
+        expect(callback.mock.calls).toEqual([[response]]);
         //FIXME: Remove after developing phase with above line
-        expect(callback.mock.calls).toEqual([[JSON.parse(response)]]);
+        // expect(callback.mock.calls).toEqual([[JSON.parse(response)]]);
     });
 });
 
@@ -612,9 +612,9 @@ describe("getUsersAjax function tests", function () {
         getUsersAjax(callback);
         expect(xhrMock.open).toBeCalledWith("GET", "/api/getUsers", true);
         xhrMock.onreadystatechange(new Event(""));
-        // expect(callback.mock.calls).toEqual([[response]]);
+        expect(callback.mock.calls).toEqual([[response]]);
         //FIXME: Remove after developing phase with above line
-        expect(callback.mock.calls).toEqual([[JSON.parse(response)]]);
+        // expect(callback.mock.calls).toEqual([[JSON.parse(response)]]);
     });
 });
 
