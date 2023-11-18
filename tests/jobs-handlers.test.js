@@ -1,7 +1,7 @@
 "use strict"
 
 const mysql2 = require('mysql2');
-const { getListJobs, getUserInfoInitState, editJobInfo, reopenJob, editOrderPriority } = require('../scripts/jobs-handlers');
+const { getListJobs, getUserInfoInitState, editJobInfo, createJob, reopenJob, editOrderPriority } = require('../scripts/jobs-handlers');
 
 var mockRequest = {};
 var mockResponse = {};
@@ -132,6 +132,51 @@ describe('editJobInfo function', function () {
 		});
 
 		editJobInfo(mockRequest, mockResponse);
+
+		expect(mockResponse.sendStatus).toHaveBeenCalledWith(500);
+	});
+});
+
+describe('createJob function', function () {
+	mockResponse.sendStatus = jest.fn();
+
+	it('create a job and return 200 status on success', function () {
+		mockRequest.body = {
+			userId: 2,
+			userIdClient: 1,
+			status: 'Em progresso',
+			equipmentType: 'Telefone',
+			equipmentTypeOther: '',
+			equipmentProcedure: 'Substituir bateria',
+			equipmentProcedureOther: '',
+			equipmentBrand: 'iPhone',
+			notes: 'Some notes',
+			priority: 1,
+		};
+
+		mysql2.createConnection().query.mockImplementation(function (query, _params, callback) {
+			if (query.includes('SELECT MAX(Priority_Work)')) {
+				callback(null, [{ PRIORITY_NUMBER: null }]);
+			} else if (query.includes('INSERT INTO JOB')) {
+				callback(null, {});
+			}
+		});
+
+		createJob(mockRequest, mockResponse);
+
+		expect(mockResponse.sendStatus).toHaveBeenCalledWith(200);
+	});
+
+	it('handle an error during job creation and return 500 status', function () {
+		mysql2.createConnection().query.mockImplementation(function (query, _params, callback) {
+			if (query.includes('SELECT MAX(Priority_Work)')) {
+				callback(null, [{ PRIORITY_NUMBER: null }]);
+			} else if (query.includes('INSERT INTO JOB')) {
+				callback(new Error('Database error'), null);
+			}
+		});
+
+		createJob(mockRequest, mockResponse);
 
 		expect(mockResponse.sendStatus).toHaveBeenCalledWith(500);
 	});
