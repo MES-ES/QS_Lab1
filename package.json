@@ -21,7 +21,8 @@
         "eslint-plugin-import": "^2.29.0",
         "eslint-plugin-n": "^16.2.0",
         "eslint-plugin-promise": "^6.1.1",
-        "jest": "^29.7.0"
+        "jest": "^29.7.0",
+        "jest-environment-jsdom": "^29.7.0"
     },
     "scripts": {
         "eslint": "npx eslint . -f ./eslint-formatter.js -c .eslintrc/eslintrc.json",
@@ -30,5 +31,8 @@
         "eslint-server": "npx eslint scripts -f ./eslint-formatter.js -c .eslintrc/eslintrc-server.json",
         "test": "jest",
         "test-verbose": "jest --verbose"
+    },
+    "jest": {
+        "testEnvironment": "jsdom"
     }
 }
