@@ -2,14 +2,15 @@
 \documentclass[a4paper,12pt]{article} % Page Setup
 \usepackage[portuguese]{babel} % Commands Language
 \usepackage{graphicx} % Image Load
-\usepackage{hyperref} % References
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref} % References
 \usepackage[none]{hyphenat} % Remove Hyphenation
-\usepackage[left=2cm,right=2cm,bottom=5cm]{geometry} % Custom margin size
+\usepackage[left=2cm,right=2cm,bottom=2cm]{geometry} % Custom margin size
 \usepackage{float} % Figures and Objects better position
 \usepackage{titlesec} % Figures and Objects better position
+\usepackage{array} % Handle advanced table configurations
 
 % Table of Contents Configuration
-\setcounter{tocdepth}{3}
+\setcounter{tocdepth}{3} % Setting table of contents depth to 3 instead of 2
 
 % DOCUMENT
 \begin{document}
@@ -48,54 +49,125 @@ Este relatório tem como objetivo a análise da qualidade de código de um proje
 
 \newpage
 \section{Análise do Caso de Estudo}
-Sendo esta a primeira fase desta pequena investigação, transferimos o projeto caso de estudo do \footnote{Moodle IPS - \url{https://moodle.ips.pt/2324/}}{\textbf{Moodle}} e instalámos nas nossas máquinas para análise. Desta forma, após instalarmos e configurarmos o projeto nos nossos computadores, fizemos um breve teste das suas funcionalidades e diagnosticámos alguns problemas que possam afetar a qualidade do projeto, assim sendo, elaborámos uma lista de requisitos funcionais que o projeto deveria implementar.
+Sendo esta a primeira fase desta pequena investigação, transferimos o projeto caso de estudo do \textbf{Moodle}\footnote{Moodle IPS - \url{https://moodle.ips.pt/2324/}} e instalámos nas nossas máquinas para análise. Desta forma, após instalarmos e configurarmos o projeto nos nossos computadores, fizemos um breve teste das suas funcionalidades e diagnosticámos alguns problemas que possam afetar a qualidade do projeto, assim sendo, elaborámos uma lista de requisitos funcionais que o projeto deveria implementar.
 
 \subsection{Análise de Requisitos}
-\subsubsection{Clientes}
-\begin{itemize}
-	\item O sistema deverá permitir inserir novos clientes;
-	\item O sistema deverá permitir pesquisar pelos clientes;
-	\item O sistema deverá permitir aplicar filtros às pesquisas dos clientes;
-	\item O sistema deverá permitir atualizar a informação dos clientes;
-	\item O sistema deverá permitir eliminar clientes;
-	\item O sistema deverá efetuar a validação de dados ao criar um cliente.
-\end{itemize}
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|l|p{12cm}|l|r|}
+		\hline
+		\textbf{ID} & \textbf{Descrição} & \textbf{Implementado}\\
+		\hline
+		RF1 & O sistema deverá permitir inserir novos clientes & Sim \\
+		\hline
+		RF2 & O sistema deverá permitir pesquisar pelos clientes & Sim \\
+		\hline
+		RF3 & O sistema deverá permitir aplicar filtros às pesquisas dos clientes & Parcialmente\footnotemark \\
+		\hline
+		RF4 & O sistema deverá permitir atualizar a informação dos clientes & Sim \\
+		\hline
+		RF5 & O sistema deverá permitir eliminar clientes & Sim \\
+		\hline
+		RF6 & O sistema deverá efetuar a validação de dados ao criar um cliente & Parcialmente\footnotemark \\
+		\hline
+		RF7 & O sistema deverá limpar os campos prévios dos formulários, após sua utiliazação & Não \\
+		\hline
+	\end{tabular}
+	\caption{Análise de requisitos entidade cliente}
+\end{table}
 
-\subsubsection{Utilizadores}
-\begin{itemize}
-	\item O sistema deverá permitir inserir novos utilizadores;
-	\item O sistema deverá permitir pesquisar pelos utilizadores;
-	\item O sistema deverá permitir aplicar filtros às pesquisas dos utilizadores;
-	\item O sistema deverá permitir atualizar a informação de outros utilizadores;
-	\item O sistema deverá permitir eliminar outros utilizadores;
-	\item O sistema deverá efetuar a validação de dados ao criar um utilizador.
-\end{itemize}
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|l|p{12cm}|l|r|}
+		\hline
+		\textbf{ID} & \textbf{Descrição} & \textbf{Implementado}\\
+		\hline
+		RF8 & O sistema deverá permitir inserir novos utilizadores & Sim \\
+		\hline
+		RF9 & O sistema deverá permitir pesquisar pelos utilizadores & Sim \\
+		\hline
+		RF10 & O sistema deverá permitir aplicar filtros às pesquisas dos utilizadores & Parcialmente\footnotemark[2] \\
+		\hline
+		RF11 & O sistema deverá permitir atualizar os seus dados pessoais & Não \\
+		\hline
+		RF12 & O sistema deverá permitir não atualizar os dados pessoais de utilizadores com as mesmas roles ou com hierarquia superior & Não \\
+		\hline
+		RF13 & O sistema deverá permitir atualizar a informação de outros utilizadores com hierarquia inferior & Sim \\
+		\hline
+		RF14 & O sistema deverá permitir eliminar outros utilizadores & Sim \\
+		\hline
+		RF15 & O sistema deverá efetuar a validação de dados ao criar um utilizador & Parcialmente\footnotemark[3] \\
+		\hline
+		RF16 & O sistema deverá limpar os campos prévios dos formulários, após sua utiliazação & Não \\
+		\hline
+	\end{tabular}
+	\caption{Análise de requisitos entidade utilizador}
+\end{table}
 
-\newpage
-\subsubsection{Serviços}
-\begin{itemize}
-	\item O sistema deverá permitir criar serviços;
-	\item O sistema deverá permitir pesquisar pelos serviços;
-	\item O sistema deverá permitir realizar pesquisas filtrados aos serviços;
-	\item O sistema deverá permitir aplicar filtros às pesquisas dos serviços;
-	\item O sistema deverá permitir atualizar a informação dos serviços;
-	\item O sistema deverá de validar os dados ao criar um serviço;
-	\item O sistema deverá permitir reabrir um serviço concluído;
-	\item O sistema deverá de mostrar quantos qual o index do serviço relativo à sua prioridade.
-\end{itemize}
+\footnotetext[2]{Utiliza biblioteca externa}
+\footnotetext{Apenas no lado do cliente}
 
-\subsubsection{Mensagens}
-\begin{itemize}
-	\item O sistema deverá permitir enviar mensagens para outros utilizadores em tempo real;
-	\item O sistema deverá permitir escolher para qual utilizador.
-\end{itemize}
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|l|p{12cm}|l|r|}
+		\hline
+		\textbf{ID} & \textbf{Descrição} & \textbf{Implementado}\\
+		\hline
+		RF17 & O sistema deverá permitir criar serviços & Sim \\
+		\hline
+		RF18 & O sistema deverá permitir pesquisar pelos serviços & Sim \\
+		\hline
+		RF19 & O sistema deverá permitir realizar pesquisas filtrados aos serviços & Sim \\
+		\hline
+		RF20 & O sistema deverá permitir aplicar filtros às pesquisas dos serviços & Sim \\
+		\hline
+		RF21 & O sistema deverá permitir atualizar a informação dos serviços & Sim \\
+		\hline
+		RF22 & O sistema deverá de validar os dados ao criar um serviço & Sim \\
+		\hline
+		RF23 & O sistema deverá permitir reabrir um serviço concluído & Sim \\
+		\hline
+		RF24 & O sistema deverá de mostrar quantos qual o index do serviço relativo à sua prioridade & Sim \\
+		\hline
+		RF25 & O sistema deverá limpar os campos prévios dos formulários, após sua utiliazação & Não \\
+		\hline
+	\end{tabular}
+	\caption{Análise de requisitos entidade serviço}
+\end{table}
 
-\subsubsection{Sistema}
-\begin{itemize}
-	\item O sistema deverá permitir fazer login;
-	\item O sistema deverá permitir fazer logout;
-	\item O sistema deverá de verificar permissões no routing.
-\end{itemize}
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|l|p{12cm}|l|r|}
+		\hline
+		\textbf{ID} & \textbf{Descrição} & \textbf{Implementado}\\
+		\hline
+		RF26 & O sistema deverá permitir enviar mensagens para outros utilizadores em tempo real & Sim \\
+		\hline
+		RF27 & O sistema deverá permitir escolher para qual utilizador & Sim \\
+		\hline
+		RF28 & O sistema deverá permitir visualizar o histórico de mensagens & Não \\
+		\hline
+		RF29 & O sistema deverá permitir mensagens de grupo & Não \\
+		\hline
+	\end{tabular}
+	\caption{Análise de requisitos entidade mensagem}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|l|p{12cm}|l|r|}
+		\hline
+		\textbf{ID} & \textbf{Descrição} & \textbf{Implementado}\\
+		\hline
+		RF30 & O sistema deverá permitir fazer login & Não \\
+		\hline
+		RF31 & O sistema deverá permitir fazer logout & Não \\
+		\hline
+		RF32 & O sistema deverá de verificar permissões no routing & Não \\
+		\hline
+	\end{tabular}
+	\caption{Análise de requisitos entidade sistema}
+\end{table}
 
 \newpage
 \section{Ferramentas de Análise}
@@ -123,7 +195,12 @@ Para a análise de linting do código usamos a ferramenta ESLint, devido à sua 
 	\includegraphics[scale=1.5]{images/lintTrend.png}
 	\caption[Estatísticas de Download de Linters]{Estatísticas do download dos Linters ao longo do tempo\footnotemark}
 \end{figure}
+\vspace{1cm}
 \footnotetext{Imagem obtida através de \url{https://npmtrends.com/eslint-vs-jscs-vs-jshint-vs-jslint}}
+
+A nossa experiência a utilizar o \textbf{ESLint} tem sido bastante benéfica, ajudou-nos a identificar vários problemas no código analisado. Devido a configurabilidade da ferramenta, esta permitiu-nos identificar e relatar diversos problemas desde erros de sintaxe a problemas mais complexos relacionados com a qualidade e a manutenibilidade do código \textbf{JavaScript}. Adicionalmente podemos também referir que a habilidade de definir regras personalizadas ajudaram-nos a adaptar a ferramenta aos requisitos do projeto.
+
+Com a ajudar deste \href{https://stackoverflow.com/a/62453095}{custom formatter} foi nos possível organizar os resultados obtidos do output do \textbf{ESLint}.
 
 \newpage
 \subsection{Resultados}
@@ -261,6 +338,18 @@ Para a análise detalhada, configuramos o \textbf{ESLint} para reportar os probl
 \end{table}
 
 \newpage
+\subsubsection{Análise dos resultados obtidos}
+Observando a análise de código detalhada podemos constatar que muitos dos problemas apontados pela ferramenta, poderiam ser evitados através da utilização de uma ferramenta de formatção de código \textit{(ex: \textbf{Prettier Code Formatter})}.
+
+\hfill
+
+O \textbf{Prettier} é uma ferramenta de formatação de código que analisar o código e de seguida, o imprime de novo num estilo consistente. Ao contrário dos linters tradicionais que se focam em identificar e corrigir erros de codificação específicos, o principal objetivo do \textbf{Prettier} é impor um estilo de código consistente e opinativo em todo o código-fonte.
+
+Um dos principais benefícios do \textbf{Prettier} é a sua simplicidade e configuração \textit{barebones}. Ele pretende minimizar a necessidade dos programadores tomarem decisões sobre o estilo de código, fornecendo um conjunto padrão de regras sendo estas facilmente configuradas.
+
+Os programadores podem integrar o \textbf{Prettier} no seu \textit{workflow} usando-o diretamente a partir da linha de comandos ou integrando-o diretamente em editores de código e IDEs.
+
+\newpage
 \section{Testes Unitários}
 Os testes unitários são uma prática fundamental no desenvolvimento de software. Estes, envolvem o teste de unidades/componentes individuais do código fonte por forma a garantir a boa funcionalidade das suas operações. Estas unidades/componentes podem variar entre funções, métodos ou objetos. O objetivo principal destes testes é certificar cada uma destas unidades/componentes por forma a verificar se os retornos estão corretos, consoante a variedade de inputs possíveis. Ao se isolar e testar pequenas porções do código, os programadores mais facilmente conseguem identificar e corrigir bugs no ciclo de desenvolvimento.
 
@@ -277,6 +366,7 @@ O TDD é uma metodologia de desenvolvimento de software na qual testes unitário
 	\caption{Fluxograma Desenvolvimento Orientado a Testes(TDD)}
 \end{figure}
 
+\newpage
 \paragraph{Processo Test Driven Development}
 \begin{itemize}
 	\item Escrever um teste que define uma nova função ou melhoria;
