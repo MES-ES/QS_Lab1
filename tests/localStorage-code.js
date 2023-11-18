@@ -24,14 +24,7 @@ class LocalStorageMock {
 const localStorage = new LocalStorageMock();
 module.exports.localStorage = localStorage;
 
-module.exports.resetLocalStorage = function resetLocalStorage() {
-    saveClientsLocalStorage(null);
-    SaveUserDetails(null);
-    saveUsersLocalStorage(null);
-    saveUserJobsLocalStorage(null);
-};
-
-module.exports.SaveUserDetails = function SaveUserDetails(user) {
+const SaveUserDetails = function SaveUserDetails(user) {
     if (!localStorage) {
         return;
     }
@@ -43,8 +36,9 @@ module.exports.SaveUserDetails = function SaveUserDetails(user) {
 
     localStorage.setItem("userdetails", JSON.stringify(user));
 };
+module.exports.SaveUserDetails = SaveUserDetails;
 
-module.exports.getUserDetails = function getUserDetails() {
+function getUserDetails() {
     if (!localStorage) {
         return null;
     }
@@ -56,9 +50,10 @@ module.exports.getUserDetails = function getUserDetails() {
     }
 
     return JSON.parse(user);
-};
+}
+module.exports.getUserDetails = getUserDetails;
 
-module.exports.saveClientsLocalStorage = function saveClientsLocalStorage(clients) {
+const saveClientsLocalStorage = function saveClientsLocalStorage(clients) {
     if (!localStorage) {
         return;
     }
@@ -70,8 +65,9 @@ module.exports.saveClientsLocalStorage = function saveClientsLocalStorage(client
 
     localStorage.setItem("clients", JSON.stringify(clients));
 };
+module.exports.saveClientsLocalStorage = saveClientsLocalStorage;
 
-module.exports.getClientsLocalStorage = function getClientsLocalStorage() {
+const getClientsLocalStorage = function getClientsLocalStorage() {
     if (!localStorage) {
         return [];
     }
@@ -84,8 +80,9 @@ module.exports.getClientsLocalStorage = function getClientsLocalStorage() {
 
     return JSON.parse(clients);
 };
+module.exports.getClientsLocalStorage = getClientsLocalStorage;
 
-module.exports.saveUsersLocalStorage = function saveUsersLocalStorage(users) {
+const saveUsersLocalStorage = function saveUsersLocalStorage(users) {
     if (!localStorage) {
         return;
     }
@@ -97,8 +94,9 @@ module.exports.saveUsersLocalStorage = function saveUsersLocalStorage(users) {
 
     localStorage.setItem("users", JSON.stringify(users));
 };
+module.exports.saveUsersLocalStorage = saveUsersLocalStorage;
 
-module.exports.getUsersLocalStorage = function getUsersLocalStorage() {
+const getUsersLocalStorage = function getUsersLocalStorage() {
     if (!localStorage) {
         return [];
     }
@@ -111,8 +109,9 @@ module.exports.getUsersLocalStorage = function getUsersLocalStorage() {
 
     return JSON.parse(users);
 };
+module.exports.getUsersLocalStorage = getUsersLocalStorage;
 
-module.exports.saveUserJobsLocalStorage = function saveUserJobsLocalStorage(jobs) {
+const saveUserJobsLocalStorage = function saveUserJobsLocalStorage(jobs) {
     if (!localStorage) {
         return;
     }
@@ -124,8 +123,9 @@ module.exports.saveUserJobsLocalStorage = function saveUserJobsLocalStorage(jobs
 
     localStorage.setItem("user_jobs", JSON.stringify(jobs));
 };
+module.exports.saveUserJobsLocalStorage = saveUserJobsLocalStorage;
 
-module.exports.getUserJobsLocalStorage = function getUserJobsLocalStorage() {
+const getUserJobsLocalStorage = function getUserJobsLocalStorage() {
     if (!localStorage) {
         return [];
     }
@@ -138,3 +138,12 @@ module.exports.getUserJobsLocalStorage = function getUserJobsLocalStorage() {
 
     return JSON.parse(jobs);
 };
+module.exports.getUserJobsLocalStorage = getUserJobsLocalStorage;
+
+const resetLocalStorage = function resetLocalStorage() {
+    saveClientsLocalStorage(null);
+    SaveUserDetails(null);
+    saveUsersLocalStorage(null);
+    saveUserJobsLocalStorage(null);
+};
+module.exports.resetLocalStorage = resetLocalStorage;
