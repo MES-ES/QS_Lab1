@@ -8,6 +8,7 @@
 \usepackage{float} % Figures and Objects better position
 \usepackage{titlesec} % Figures and Objects better position
 \usepackage{array} % Handle advanced table configurations
+\usepackage{pdfpages} % Attach PDF's
 
 % Table of Contents Configuration
 \setcounter{tocdepth}{3} % Setting table of contents depth to 3 instead of 2
@@ -45,11 +46,11 @@
 
 \newpage
 \section{Introdução}
-Este relatório tem como objetivo a análise da qualidade de código de um projeto realizado por outros alunos. Para esta análise iremos recorrer a uma breve experimentação das funcionalidades e requisitos do projeto. Em seguida iremos testar várias ferramentas e livrarias de análise da qualidade/consistência do código ao qual iremos em breve apresentar não só as suas funcionalidades, mas também os resultados que obtivemos com elas.
+Este relatório tem como objetivo a análise da qualidade de código de um projeto realizado por outros alunos. Para esta análise iremos recorrer a ao teste de funcionalidades e requisitos do projeto. Em seguida iremos testar várias ferramentas e livrarias na análise da qualidade/consistência do código. De seguida iremos em breve apresentar não só as funcionalidades destas ferramentas, mas também os resultados que obtivemos com elas.
 
 \newpage
 \section{Análise do Caso de Estudo}
-Sendo esta a primeira fase desta pequena investigação, transferimos o projeto caso de estudo do \textbf{Moodle}\footnote{Moodle IPS - \url{https://moodle.ips.pt/2324/}} e instalámos nas nossas máquinas para análise. Desta forma, após instalarmos e configurarmos o projeto nos nossos computadores, fizemos um breve teste das suas funcionalidades e diagnosticámos alguns problemas que possam afetar a qualidade do projeto, assim sendo, elaborámos uma lista de requisitos funcionais que o projeto deveria implementar.
+Sendo esta a primeira fase desta pequena investigação, transferi-mos o projeto caso de estudo do \textbf{Moodle}\footnote{\url{https://moodle.ips.pt/2324/}}, importámos para o nosso repositório \textbf{GitHub}\footnote{\url{https://github.com/MES-ES/QS_Lab1}} e instalámos nas nossas máquinas para análise. Desta forma, após instalarmos e configurarmos o projeto nos nossos computadores, fizemos um breve teste das suas funcionalidades e diagnosticámos alguns problemas que possam afetar a qualidade do projeto, desta forma, para simplificar o processo, elaborámos umas tabelas com o requisitos funcionais que detetamos.
 
 \subsection{Análise de Requisitos}
 \begin{table}[H]
@@ -172,12 +173,12 @@ Sendo esta a primeira fase desta pequena investigação, transferimos o projeto 
 
 \newpage
 \section{Ferramentas de Análise}
-Após um diagnóstico de requisitos do projeto, avançamos para uma análise a nível de possíveis problemas de código, para esta tarefa, efetuamos uma pesquisa de ferramentas que nos possam ajudar com esta tarefa, das quais, achamos importante destacar:
+Após um diagnóstico de requisitos do projeto, avançamos para uma análise a nível de possíveis problemas de código, para esta tarefa, efetuamos uma pesquisa de ferramentas que nos possam ajudar com este trabalho, das quais, achamos importante destacar:
 
 \begin{itemize}
 	\item \textbf{ESLint} é uma ferramenta de análise de código estático que verifica o código JavaScript procurando diversos problemas comuns, como erros de sintaxe, problemas de formatação, violações de estilo de código e possíveis bugs.
 
-	\item \textbf{Prettier Code Formatter} é um formatador de código. Impõe um estilo consistente analisando seu código e reimprimindo-o conforme um conjunto de regras que levam em consideração diversos parâmetros como (comprimento máximo da linha, agrupando o código quando necessário, etc.). Utilizando esta ferramenta conseguimos garantir a uniformização do código desenvolvido ao longo do projeto.
+	\item \textbf{Prettier Code Formatter} é um formatador de código. Impõe um estilo consistente analisando o código e reescrevendo-o conforme um conjunto de regras que levam em consideração diversos parâmetros como (comprimento máximo de linha, agrupando o código quando necessário, etc...). Ao utilizarmos esta ferramenta conseguimos garantir a uniformização do código desenvolvido ao longo do projeto.
 
 	\item \textbf{Jest} é uma framework para testes de código compatível com bastantes projetos (Babel, TypeScript, Node, React, Angular, Vue e mais...). Suporta mocking, gera reports de code coverage.
 
@@ -340,7 +341,7 @@ Para a análise detalhada, configuramos o \textbf{ESLint} para reportar os probl
 
 \newpage
 \subsubsection{Análise dos resultados obtidos}
-Observando a análise de código detalhada podemos constatar que muitos dos problemas apontados pela ferramenta, poderiam ser evitados através da utilização de uma ferramenta de formatção de código \textit{(ex: \textbf{Prettier Code Formatter})}.
+Observando a análise de código detalhada podemos constatar que muitos dos problemas apontados pela ferramenta, poderiam ser evitados através da utilização de uma ferramenta de formatação de código \textit{(ex: \textbf{Prettier Code Formatter})}.
 
 \hfill
 
@@ -352,7 +353,7 @@ Os programadores podem integrar o \textbf{Prettier} no seu \textit{workflow} usa
 
 \newpage
 \section{Normas ISO}
-As normas ISO em desenvolvimento de software são padrões internacionais que permitem que programadores em todo o mundo estruturem melhor o seu código. Existem várias certificações ISO aplicáveis às empresas de software, e cada uma delas estabelece diretrizes e boas práticas para a criação de software. A conformidade com as normas ISO pode melhorar a segurança dos dados, a confiabilidade para os clientes e a clareza dos procedimentos e segurança do ciclo de vida do desenvolvimento do software.
+As normas ISO em desenvolvimento de software são padrões internacionais que permitem aos programadores de todo o mundo estruturar melhor o seu código. Existem várias certificações ISO aplicáveis aos programadores de software, e cada uma delas estabelece diretrizes e boas práticas para a criação de software. A conformidade com as normas ISO pode melhorar a segurança dos dados, a confiabilidade para os clientes e a clareza dos procedimentos e segurança do ciclo de vida do desenvolvimento do software.
 
 As normas ISO mais comuns na engenharia de software são:
 \begin{itemize}
@@ -371,7 +372,7 @@ As normas ISO mais comuns na engenharia de software são:
 A norma que escolhemos para este projeto foi a norma \textit{ISO 5055} que mede a qualidade e integridade de um sistema de software analisando a sua construção de forma a detetar falhas estruturais. Esta norma baseia-se em 4 fatores: segurança, confiabilidade, eficiência e manutenibilidade.
 
 \subsubsection{Importância}
-Esta norma é importante porque ajuda a determinar a confiabilidade, a dependabilidade e a resiliência de um software a nível de um sistema ou componente. Isto permite que clientes evitem interrupções no software, dano à sua reputação ou até elevadas despesas informáticas.
+Esta norma é importante porque ajuda a determinar a confiabilidade, a dependabilidade e a resiliência de um software a nível de sistema e componente.
 
 \newpage
 \subsubsection{Aplicação}
@@ -427,7 +428,7 @@ Esta norma é importante porque ajuda a determinar a confiabilidade, a dependabi
 
 \newpage
 \section{Testes Unitários}
-Os testes unitários são uma prática fundamental no desenvolvimento de software. Estes, envolvem o teste de unidades/componentes individuais do código fonte por forma a garantir a boa funcionalidade das suas operações. Estas unidades/componentes podem variar entre funções, métodos ou objetos. O objetivo principal destes testes é certificar cada uma destas unidades/componentes por forma a verificar se os retornos estão corretos, consoante a variedade de inputs possíveis. Ao se isolar e testar pequenas porções do código, os programadores mais facilmente conseguem identificar e corrigir bugs no ciclo de desenvolvimento.
+Os testes unitários são uma prática fundamental no desenvolvimento de software. Estes, envolvem o teste de unidades/componentes individuais do código-fonte por forma a garantir a boa funcionalidade das suas operações. Estas unidades/componentes podem variar entre funções, métodos ou objetos. O objetivo principal destes testes é certificar cada uma destas unidades/componentes por forma a verificar se os retornos estão corretos, consoante a variedade de inputs possíveis. Ao se isolar e testar pequenas porções do código, os programadores mais facilmente conseguem identificar e corrigir bugs no ciclo de desenvolvimento.
 
 \subsection{Metodologias e Práticas}
 O Desenvolvimento Orientado a Testes (TDD) e o Desenvolvimento Orientado ao Comportamento (BDD) são duas metodologias essenciais no campo do desenvolvimento e teste de software. Tanto o TDD quanto o BDD desempenham um papel crucial na garantia da qualidade e confiabilidade de aplicações de software.
@@ -439,8 +440,9 @@ O TDD é uma metodologia de desenvolvimento de software na qual testes unitário
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.35]{images/TDD.png}
-	\caption{Fluxograma Desenvolvimento Orientado a Testes(TDD)}
+	\caption[Fluxograma Desenvolvimento Orientado a Testes(TDD)]{Fluxograma Desenvolvimento Orientado a Testes(TDD)\footnotemark}
 \end{figure}
+\footnotetext{Imagem obtida através de \url{https://www.clipartmax.com/middle/m2i8m2m2K9K9N4i8_bdd-flow-diagram-images-gallery-diagram/}}
 
 \newpage
 \paragraph{Processo Test Driven Development}
@@ -467,9 +469,9 @@ As etapas para o Desenvolvimento Orientado ao Comportamento são bastante simple
 
 \begin{itemize}
 	\item O comportamento é descrito normalmente utilizando uma user story, que permite que a equipa discuta exemplos concretos da nova funcionalidade e as expectativas do seu comportamento;
-	\item A ação é então escrita transformando os exemplos em documentação de forma que possa ser automatizada;
+	\item A ação é então escrita, transformando os exemplos em documentação de forma que possa ser automatizada;
 	\item O teste é executado para auxiliar e orientar os programadores no desenvolvimento do código;
-	\item O código é então criado para realizar esta funcionalidade tornando assim o código funcional.
+	\item O código é então criado, para realizar esta funcionalidade tornando assim o código funcional.
 \end{itemize}
 
 \paragraph{Benefícios Behavior-Driven Development}
@@ -483,13 +485,55 @@ Existem vários benefícios em usar BDD para desenvolvimento de software, inclui
 
 \newpage
 \subsubsection{TDD e BDD}
-Em resumo, o TDD é uma prática de desenvolvimento que se foca em testar o código de forma isolada, enquanto que o BDD é uma metodologia de equipa que se foca em testar o comportamento da aplicação do ponto de vista do utilizador. Embora partilhem semelhanças, eles têm algumas diferenças chave na finalidade, no tipo de colaboração, na linguagem e nos casos de teste.
+Em resumo, o TDD é uma prática de desenvolvimento que se foca em testar o código de forma isolada, enquanto o BDD é uma metodologia de equipa que se foca em testar o comportamento da aplicação do ponto de vista do utilizador. Embora partilhem semelhanças, eles têm algumas diferenças-chave na finalidade, no tipo de colaboração, na linguagem e nos casos de teste.
 
 \vspace{1cm}
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.7]{images/tdd-bdd.png}
-	\caption{Fluxograma TDD com BDD}
+	\caption[Fluxograma TDD com BDD]{Fluxograma TDD com BDD\footnotemark}
 \end{figure}
+\footnotetext{Imagem obtida através de \url{https://www.outsystems.com/blog/posts/using-bdd-tdd/}}
+
+\newpage
+\subsection{Resultados}
+Após efetuarmos os testes unitários ao código-fonte, corrermos o comando \verb"npx jest --coverage" e verificamos que conseguimos obter uma code coverage de cerca 95\%.
+
+\scriptsize
+\begin{verbatim}
+-----------------------------|---------|----------|---------|---------|-------------------------------------
+File                         | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+-----------------------------|---------|----------|---------|---------|-------------------------------------
+All files                    |   91.34 |     78.2 |   95.12 |   91.34 |
+ scripts                     |   86.88 |    76.78 |   90.24 |   86.88 |
+  authentication-handlers.js |     100 |      100 |     100 |     100 |
+  clients-handlers.js        |     100 |      100 |     100 |     100 |
+  globalHandlers.js          |     100 |      100 |     100 |     100 |
+  jobs-handlers.js           |   85.84 |    67.85 |     100 |   85.84 | 40-48,94-96,101,121-126,154-156,165
+  messaging-handlers.js      |   74.28 |    66.66 |   66.66 |   74.28 | 57-78
+  users-handlers.js          |   82.97 |       80 |      80 |   82.97 | 77-86
+ tests                       |   95.85 |       79 |     100 |   95.85 |
+  classes-code.js            |     100 |      100 |     100 |     100 |
+  localStorage-code.js       |   89.47 |    76.47 |     100 |   89.47 | 29,43,58,72,87,101,116,130
+  requests-code.js           |    98.4 |     80.3 |     100 |    98.4 | 94-95
+-----------------------------|---------|----------|---------|---------|-------------------------------------
+\end{verbatim}
+\normalsize
+
+Podemos observar que relativamente ao ficheiro \verb"localStorage-code.js" as linhas não cobertas estão relacionadas com verificações à propriedade \textit{localStorage}, que no ambiente de testes esteve \textit{"mocked"}, por forma a não mexer com dados originais. Ainda no ficheiro \verb"request-code.js", as linhas não cobertas estão relacionadas com o insucesso do pedido de \textit{logout} pois num ambiente de produção o servidor retornava sempre o resultado \textit{status: 200}.
+
+Desta forma, deixamos nos anexos o report do resultado individual de cada teste unitário.
+
+\subsubsection{Testes sem Sucesso}
+De seguida podemos analisar os testes que falharam, de uma forma breve iremos explicar o porquê.
+\begin{itemize}
+	\item Delete User tests(handle an unsuccessful user delete because of missing data) - Este teste falhou pois não é efetuado a validação do parâmetro ID;
+	\item getUsersAjax function tests (With unsuccessful request and new users saved in localStorage) - Este teste falhou devido ao mau tratamento de dados. Quando o servidor consegue ler os dados da base de dados, este envia um objeto JSON para o cliente e este é devolvido. Quando o servidor não consegue ler os dados da base de dados, a request vai buscar os dados guardados no localStorage, mas o localStorage guarda os dados em String e a função de request devolve os dados sem fazer o parse para objeto;
+	\item getClientsAjax function tests (With unsuccessful request and new users saved in localStorage) - Este teste falhou devido ao mau tratamento de dados. Quando o servidor consegue ler os dados da base de dados, este envia um objeto JSON para o cliente e este é devolvido. Quando o servidor não consegue ler os dados da base de dados, a request vai buscar os dados guardados no localStorage, mas o localStorage guarda os dados em String e a função de request devolve os dados sem fazer o parse para objeto.
+\end{itemize}
+
+\newpage
+\section{Anexos}
+\includepdf[pages=-]{../reports/test_report.pdf}
 
 \end{document}
